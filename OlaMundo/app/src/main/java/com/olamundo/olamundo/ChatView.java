@@ -17,11 +17,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 public class ChatView extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, onClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
 
     @Override
@@ -40,19 +42,6 @@ public class ChatView extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // ***************************************
-//        LinearLayout lnr = (LinearLayout) findViewById(R.id.drawer_layout);
-//        Resources rsr = getResources();
-        Button btn = (Button)findViewById(R.id.button);
-        Log.d("kuku",btn.isSelected()?"true":"false");
-
-//        Student std = new Student();
-//        TextView tv = new TextView(this);
-//
-//        tv.setId(12);
-//        View vvv = findViewById(tv.getId());
-
-        // ***************************************
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -73,7 +62,14 @@ public class ChatView extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Log.d("Rput", getResources().getString(R.string.app_name));
+        // ***************************************
+
+        GridView grd = (GridView) findViewById(R.id.gridView);
+        grd.setAdapter(new ImageAdapter(this));
+
+
+        // ***************************************
+
 
 
     }
