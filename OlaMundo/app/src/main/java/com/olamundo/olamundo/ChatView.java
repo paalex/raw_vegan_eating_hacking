@@ -1,6 +1,7 @@
 package com.olamundo.olamundo;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
@@ -15,10 +16,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class ChatView extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, onClickListener {
 
 
     @Override
@@ -37,11 +40,20 @@ public class ChatView extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // ***************************************
+//        LinearLayout lnr = (LinearLayout) findViewById(R.id.drawer_layout);
+//        Resources rsr = getResources();
+        Button btn = (Button)findViewById(R.id.button);
+        Log.d("kuku",btn.isSelected()?"true":"false");
 
-        TextView tv = new TextView(this);
+//        Student std = new Student();
+//        TextView tv = new TextView(this);
+//
+//        tv.setId(12);
+//        View vvv = findViewById(tv.getId());
 
-        tv.setId(12);
-        View vvv = findViewById(tv.getId());
+        // ***************************************
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
