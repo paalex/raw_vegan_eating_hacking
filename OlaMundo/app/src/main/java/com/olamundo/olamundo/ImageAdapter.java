@@ -40,7 +40,7 @@ public class ImageAdapter extends BaseAdapter {
         ImageView imgView;
         if (convertView == null) {
             imgView = new ImageView(aContext);
-            imgView.setLayoutParams(new GridView.LayoutParams(50,50));
+            imgView.setLayoutParams(new GridView.LayoutParams(200,200));
             imgView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         } else {
             imgView = (ImageView) convertView;
@@ -51,7 +51,8 @@ public class ImageAdapter extends BaseAdapter {
 
     Integer[] imageNameArray = {
             R.drawable.allow
-//            , R.drawable.afraid, R.drawable.angry, R.drawable.bad, R.drawable.banana
+            , R.drawable.afraid , R.drawable.angry, R.drawable.bad, R.drawable.banana, R.drawable.best, R.drawable.bicycle, R.drawable.busy
+            , R.drawable.but, R.drawable.call, R.drawable.car, R.drawable.cat, R.drawable.coffee, R.drawable.coffee, R.drawable.corn
 
     };
 
