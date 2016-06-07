@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 public class ChatView extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     public GridImageAdapter gridAdapter = new GridImageAdapter(this);
     public ChatImageAdapter chatAdapter = new ChatImageAdapter(this);;
@@ -30,16 +30,6 @@ public class ChatView extends AppCompatActivity
 
     }
 
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Drawable img = ((ImageView)view).getDrawable();
-        chatAdapter.appendMessage(img);
-        chatAdapter.notifyDataSetChanged();
-        ListView lv = (ListView) findViewById(R.id.listView);
-        lv.smoothScrollToPosition(chatAdapter.getCount()-1);
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +44,13 @@ public class ChatView extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                chatAdapter.deleteChatHistory();
+                //**********
+
+                chatAdapter.addMessageToChat();
                 chatAdapter.notifyDataSetChanged();
-                Snackbar.make(view, "History Cleared", Snackbar.LENGTH_SHORT)
+
+                //********
+                Snackbar.make(view, "Message Sent", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
             }
         });
@@ -75,7 +69,17 @@ public class ChatView extends AppCompatActivity
         //Grid initialize
         GridView grd = (GridView) findViewById(R.id.gridView);
         grd.setAdapter(gridAdapter);
-        grd.setOnItemClickListener(this);
+
+        grd.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Drawable img = ((ImageView)view).getDrawable();
+                chatAdapter.addSymbolToMessage(img);
+                chatAdapter.notifyDataSetChanged();
+                ListView lv = (ListView) findViewById(R.id.listView);
+                lv.smoothScrollToPosition(chatAdapter.getCount()-1);
+            }
+        });
 
 
         //Chat list initialize
@@ -114,7 +118,9 @@ public class ChatView extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_delete_history) {
+            chatAdapter.deleteChatHistory();
+            chatAdapter.notifyDataSetChanged();
             return true;
         }
 
