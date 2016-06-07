@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -50,32 +51,35 @@ public class ChatImageAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ScrollView messageScrollView;
+        HorizontalScrollView messageScrollView;
         LinearLayout messageLinearLayout = new LinearLayout(aContext);
 
         if (convertView == null) {
-            messageScrollView = new ScrollView(aContext);
+            messageScrollView = new HorizontalScrollView(aContext);
 
         } else {
-            messageScrollView = (ScrollView)convertView;
+            messageScrollView = (HorizontalScrollView)convertView;
             messageScrollView.removeAllViews();
         }
 
         messageScrollView.addView(messageLinearLayout);
+        messageScrollView.setLayoutParams(new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        messageScrollView.setHorizontalFadingEdgeEnabled(true);
+        messageScrollView.setFadingEdgeLength(150);
 
-//        ViewGroup.LayoutParams messageLayout = new GridView.LayoutParams(aContext,);
-//                messageLinearLayout.setLayoutParams();
-        messageLinearLayout.setLayoutParams(new ScrollView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        messageLinearLayout.setLayoutParams(new HorizontalScrollView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         messageLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
+
         if (position == chatArray.size()-1) {
-            messageLinearLayout.setBackgroundColor(Color.GRAY);
+            messageLinearLayout.setBackgroundColor(Color.LTGRAY);
+
         }
 
         ArrayList<Drawable> thisMessageArray = chatArray.get(position);
         for (Drawable symbol: thisMessageArray) {
 
             ImageView symbolImageView = new ImageView(aContext);
-            symbolImageView.setLayoutParams(new LinearLayout.LayoutParams(350,350));
+            symbolImageView.setLayoutParams(new LinearLayout.LayoutParams(250,250));
             symbolImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
             symbolImageView.setImageDrawable(symbol);
@@ -92,17 +96,20 @@ public class ChatImageAdapter extends BaseAdapter {
         if (chatArray.size() != 0){
             chatArray.remove(chatArray.size()-1);
         }
-        ArrayList<Drawable> tempArr = (ArrayList<Drawable>) currentMessageArray.clone();
-        chatArray.add(tempArr);
+//        ArrayList<Drawable> tempArr = (ArrayList<Drawable>) currentMessageArray.clone();
+        chatArray.add((ArrayList<Drawable>) currentMessageArray.clone());
     }
 
     public void addMessageToChat(){
-        currentMessageArray.clear();
-        chatArray.add(currentMessageArray);
+        if(!currentMessageArray.isEmpty()) {
+            currentMessageArray.clear();
+            chatArray.add(currentMessageArray);
+        }
     }
 
     public void deleteChatHistory(){
         chatArray.clear();
+        currentMessageArray.clear();
 
     }
 
