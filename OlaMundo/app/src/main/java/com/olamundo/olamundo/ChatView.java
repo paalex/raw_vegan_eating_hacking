@@ -1,12 +1,9 @@
 package com.olamundo.olamundo;
 
-import android.app.Activity;
-import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,15 +13,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.TextView;
+import android.widget.ImageView;
+import android.widget.ListView;
 
 public class ChatView extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener {
 
+    public GridImageAdapter gridAdapter = new GridImageAdapter(this);
+    public ChatImageAdapter chatAdapter = new ChatImageAdapter(this);;
 
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState){
@@ -33,7 +31,15 @@ public class ChatView extends AppCompatActivity
     }
 
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Drawable img = ((ImageView)view).getDrawable();
+        chatAdapter.appendMessage(img);
+        chatAdapter.notifyDataSetChanged();
+        ListView lv = (ListView) findViewById(R.id.listView);
+        lv.smoothScrollToPosition(chatAdapter.getCount()-1);
 
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +54,9 @@ public class ChatView extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                chatAdapter.deleteChatHistory();
+                chatAdapter.notifyDataSetChanged();
+                Snackbar.make(view, "History Cleared", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
             }
         });
@@ -64,8 +72,15 @@ public class ChatView extends AppCompatActivity
 
         // ***************************************
 
+        //Grid initialize
         GridView grd = (GridView) findViewById(R.id.gridView);
-        grd.setAdapter(new ImageAdapter(this));
+        grd.setAdapter(gridAdapter);
+        grd.setOnItemClickListener(this);
+
+
+        //Chat list initialize
+        ListView chatListView = (ListView) findViewById(R.id.listView);
+        chatListView.setAdapter(chatAdapter);
 
 
         // ***************************************

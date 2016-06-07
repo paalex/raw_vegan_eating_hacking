@@ -10,11 +10,11 @@ import android.widget.ImageView;
 /**
  * Created by alexpavtoulov on 6/6/16.
  */
-public class ImageAdapter extends BaseAdapter {
+public class GridImageAdapter extends BaseAdapter {
 
     private Context aContext;
 
-    public ImageAdapter(Context c) {
+    public GridImageAdapter(Context c) {
 
         aContext = c;
     }
@@ -40,7 +40,7 @@ public class ImageAdapter extends BaseAdapter {
         ImageView imgView;
         if (convertView == null) {
             imgView = new ImageView(aContext);
-            imgView.setLayoutParams(new GridView.LayoutParams(200,200));
+            imgView.setLayoutParams(new GridView.LayoutParams(350,350));
             imgView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         } else {
             imgView = (ImageView) convertView;
