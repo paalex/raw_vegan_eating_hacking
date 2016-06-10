@@ -22,8 +22,16 @@ import java.util.List;
 public class ChatImageAdapter extends BaseAdapter {
 
     private Context aContext;
-    private ArrayList<ArrayList<Drawable>> chatArray = new ArrayList<ArrayList<Drawable>>();
-    private ArrayList<Drawable> currentMessageArray = new ArrayList<Drawable>();
+    private ArrayList<ArrayList<Drawable>> chatArray = new ArrayList<>();
+
+
+    public ArrayList<ArrayList<Drawable>> getChatArray() {
+        return chatArray;
+    }
+
+    public void setChatArray(ArrayList<ArrayList<Drawable>> chatArray) {
+        this.chatArray = chatArray;
+    }
 
 
     public ChatImageAdapter(Context c) {
@@ -90,26 +98,37 @@ public class ChatImageAdapter extends BaseAdapter {
         return messageScrollView;
     }
 
-    public void addSymbolToMessage(Drawable message){
-        currentMessageArray.add(message);
+    public void addSymbolToMessage(Drawable img){
 
-        if (chatArray.size() != 0){
-            chatArray.remove(chatArray.size()-1);
+        ArrayList<Drawable> currentMessageArray;
+
+        if (chatArray.size() != 0) {
+            currentMessageArray = chatArray.get(chatArray.size() - 1);
+            currentMessageArray.add(img);
+            chatArray.remove(chatArray.size() - 1);
+
+        } else {
+            currentMessageArray = new ArrayList<>();
+            currentMessageArray.add(img);
+
         }
-//        ArrayList<Drawable> tempArr = (ArrayList<Drawable>) currentMessageArray.clone();
-        chatArray.add((ArrayList<Drawable>) currentMessageArray.clone());
+
+        chatArray.add(currentMessageArray);
+
+
     }
 
     public void addMessageToChat(){
-        if(!currentMessageArray.isEmpty()) {
-            currentMessageArray.clear();
-            chatArray.add(currentMessageArray);
+        if(!chatArray.isEmpty() && !chatArray.get(chatArray.size()-1).isEmpty()) {
+            chatArray.add(new ArrayList<Drawable>());
         }
+
+
     }
 
     public void deleteChatHistory(){
         chatArray.clear();
-        currentMessageArray.clear();
+
 
     }
 

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "298578790373",
+    "firebase_url": "https://ola-mundo-ffbb3.firebaseio.com",
+    "project_id": "ola-mundo-ffbb3",
+    "storage_bucket": "ola-mundo-ffbb3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298578790373:android:1ff19b2d115c9a6c",
+        "android_client_info": {
+          "package_name": "com.olamundo.olamundo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298578790373-9qmh9lt5g9gnv88e3f0nch1ar08oh43t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.olamundo.olamundo",
+            "certificate_hash": "53937ACC87924193B42739840854D2746FE3A568"
+          }
+        },
+        {
+          "client_id": "298578790373-nj58krha8p5m1vfpcj2srri69u25jg4l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDREpr7_2ysCSLXTn2eMOMZ0mqnDTx-l0U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "298578790373-nj58krha8p5m1vfpcj2srri69u25jg4l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

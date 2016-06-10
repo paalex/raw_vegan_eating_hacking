@@ -1,5 +1,7 @@
 package com.olamundo.olamundo;
 
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -22,11 +25,13 @@ public class ChatView extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public GridImageAdapter gridAdapter = new GridImageAdapter(this);
-    public ChatImageAdapter chatAdapter = new ChatImageAdapter(this);;
+    public ChatImageAdapter chatAdapter = new ChatImageAdapter(this);
 
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState){
        super.onSaveInstanceState(savedInstanceState);
+//        savedInstanceState.putParcelableArrayList("chatArray",);
+//        chatAdapter.getChatArray();
 
     }
 
@@ -67,19 +72,24 @@ public class ChatView extends AppCompatActivity
         // ***************************************
 
         //Grid initialize
+
         GridView grd = (GridView) findViewById(R.id.gridView);
         grd.setAdapter(gridAdapter);
 
-        grd.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        grd.setOnItemClickListener(new GridView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Drawable img = ((ImageView)view).getDrawable();
                 chatAdapter.addSymbolToMessage(img);
                 chatAdapter.notifyDataSetChanged();
+
                 ListView lv = (ListView) findViewById(R.id.listView);
                 lv.smoothScrollToPosition(chatAdapter.getCount()-1);
             }
         });
+
+        Resources resources = getResources();
+        Configuration conf = resources.getConfiguration();
 
 
         //Chat list initialize
@@ -151,4 +161,11 @@ public class ChatView extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
 }
+
